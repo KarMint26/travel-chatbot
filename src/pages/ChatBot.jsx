@@ -89,7 +89,7 @@ const ChatBot = () => {
       method: "POST",
       url: api_url,
       headers: {
-        Authorization: `Bearer ${api_key}`,
+        "Authorization": `Bearer ${api_key}`,
         "Content-Type": "application/json",
       },
       data: {
