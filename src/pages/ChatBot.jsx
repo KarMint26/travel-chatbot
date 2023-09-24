@@ -82,8 +82,8 @@ const ChatBot = () => {
   }, []);
 
   const getResponseFromAPI = async (prompts) => { // function to get response from api
-    const api_key = process.env.API_KEY;
-    const api_url = process.env.API_URL;
+    const api_key = process.env.API_KEY || "13389390-dcd1-4eec-ba31-56043782f197";
+    const api_url = process.env.API_URL || "https://api.sinawardi.com/askme";
 
     const options = {
       method: "POST",
