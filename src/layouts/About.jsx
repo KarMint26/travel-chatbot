@@ -1,7 +1,6 @@
 import React from "react";
-import LandingAbout from "/landing-about.svg";
 
-export default function About() {
+export default function About({ LandingAbout }) {
   return (
     <React.Fragment>
       <div className='wrapper-content-about'>

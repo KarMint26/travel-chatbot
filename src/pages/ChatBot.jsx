@@ -21,9 +21,9 @@ const ChatBot = () => {
   const [sideBar, setSideBar] = React.useState(false); // State use for sidebar animation slide
   const [prompt, setPrompt] = React.useState(""); // State for input field
   const [nextId, setNextId] = React.useState(2); // State for id
-  const [dataResult, setDataResult] = React.useState(""); // State for response API
   const [loading, setLoading] = React.useState(true); // State for loading
   const [error, setError] = React.useState(false); // State for error response
+  const [errMessage, setErrorMessage] = React.useState(""); // state for value of error message
   const [listChat, setListChat] = React.useState([
     // State to list of chat
     {
@@ -81,15 +81,18 @@ const ChatBot = () => {
     localStorage.removeItem("theme");
   }, []);
 
-  const getResponseFromAPI = async (prompts) => { // function to get response from api
-    const api_key = process.env.API_KEY || "13389390-dcd1-4eec-ba31-56043782f197";
-    const api_url = process.env.API_URL || "https://api.sinawardi.com/askme";
+  const getResponseFromAPI = async (prompts) => {
+    // function to get response from api
+    const api_key =
+      import.meta.env.API_KEY || "13389390-dcd1-4eec-ba31-56043782f197";
+    const api_url =
+      import.meta.env.API_URL || "https://api.sinawardi.com/askme";
 
     const options = {
       method: "POST",
       url: api_url,
       headers: {
-        "Authorization": `Bearer ${api_key}`,
+        Authorization: `Bearer ${api_key}`,
         "Content-Type": "application/json",
       },
       data: {
@@ -99,7 +102,7 @@ const ChatBot = () => {
 
     const dataFromAPI = await axios.request(options);
 
-    return dataFromAPI.data;
+    return dataFromAPI.data.response;
   };
 
   const handleResponse = (res) => {
@@ -111,8 +114,6 @@ const ChatBot = () => {
     };
     setListChat((chat) => [...chat, newChat]);
     setNextId((prevId) => (prevId += 1));
-    setLoading(false);
-    setError(false);
   };
 
   const handleSubmit = async (e) => {
@@ -128,18 +129,25 @@ const ChatBot = () => {
     setPrompt("");
     setNextId((prevId) => (prevId += 1));
 
-    getResponseFromAPI(prompt)
-      .then((dataApi) => setDataResult(dataApi.response))
-      .catch((err) => {
-        setError(true);
-        console.log(err.message);
-      });
+    const getData = getResponseFromAPI(prompt);
 
-    if (dataResult !== "") {
-      handleResponse(dataResult);
-    } else {
-      handleResponse("Error: API Not Response");
-    }
+    getData
+      .then((data) => {
+        handleResponse(data);
+        setTimeout(() => {
+          setLoading(false);
+          setError(false);
+        }, 3000);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        handleResponse(`Error: ${err.message}`);
+        setErrorMessage(`Error: ${err.message}`);
+        setError(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
+      });
 
     // Contoh request jika berhasil
     // const dataFromAPI =
@@ -341,7 +349,7 @@ const ChatBot = () => {
                                   </>
                                 ) : error ? (
                                   <>
-                                    <h1>Error: API Not Response</h1>
+                                    <h1>{errMessage}</h1>
                                   </>
                                 ) : (
                                   <>

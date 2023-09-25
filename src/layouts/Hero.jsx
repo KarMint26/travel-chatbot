@@ -1,8 +1,7 @@
 import React from "react";
-import LandingHero from "/landing-hero.svg";
 import { Link } from "react-router-dom";
 
-export default function Hero() {
+export default function Hero({ LandingHero }) {
   return (
     <React.Fragment>
       <div className='wrapper-content'>
