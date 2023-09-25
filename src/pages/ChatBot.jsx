@@ -138,7 +138,7 @@ const ChatBot = () => {
       })
       .catch((err) => {
         console.log(err.message);
-        handleResponse(`Error: ${err.message}`);
+        handleResponse(`Error`);
         setErrorMessage(`Error: ${err.message}`);
         setError(true);
         setTimeout(() => {
