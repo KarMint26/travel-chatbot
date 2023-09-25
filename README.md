@@ -43,7 +43,7 @@
    - **App.jsx** = is the main component that serves as a container for all other components in the application
    - **globals.css** = css file that is used as a global styling of all pages
    - **main.jsx** = is the file responsible for loading and rendering the main components of the application
-4. **.env** = The files used to store environment variables are confidential such as api keys and urls, in this project repository I did not include env because that's secret
+4. **.env** = The files used to store environment variables are confidential such as api keys and urls, in this project repository I did not include env because that's secret. In production and hosted on netlify, I include environment variables separately from the github repository.
 5. **.eslintrc.cjs** = this file is used to set linting rules, plugins, and other options used by ESLint in JavaScript projects
 6. **.gitignore** = git ignore documentations for react javascript
 7. **index.html** = the html file used to render the react-dom
