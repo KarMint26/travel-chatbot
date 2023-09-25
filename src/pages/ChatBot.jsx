@@ -87,7 +87,10 @@ const ChatBot = () => {
       import.meta.env.API_KEY || "13389390-dcd1-4eec-ba31-56043782f197";
     const api_url =
       import.meta.env.API_URL || "https://api.sinawardi.com/askme";
-    const dataPrompt = JSON.stringify(prompts);
+    const dataPrompt = {
+      "prompt": `${prompts}`,
+    };
+    const dataPayload = JSON.stringify(dataPrompt);
 
     const options = {
       method: "POST",
@@ -96,7 +99,7 @@ const ChatBot = () => {
         "Authorization": `Bearer ${api_key}`,
         "Content-Type": "application/json",
       },
-      data: dataPrompt,
+      data: dataPayload,
     };
 
     const dataFromAPI = await axios.request(options);
