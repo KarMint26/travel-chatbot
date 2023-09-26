@@ -90,7 +90,7 @@ const ChatBot = () => {
     const dataPrompt = {
       "prompt": `${prompts}`,
     };
-    const dataPayload = JSON.stringify(dataPrompt);
+    const dataPayloads = JSON.stringify(dataPrompt);
 
     const options = {
       method: "POST",
@@ -99,7 +99,7 @@ const ChatBot = () => {
         "Authorization": `Bearer ${api_key}`,
         "Content-Type": "application/json",
       },
-      data: dataPayload,
+      data: dataPayloads,
     };
 
     const dataFromAPI = await axios.request(options);
