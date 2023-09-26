@@ -110,7 +110,7 @@ const ChatBot = () => {
   };
 
   const handleResponse = (res) => {
-    // Function to handle response from handle submit
+    // Function to handle response from handle submit from user
     const newChat = {
       id: nextId,
       type: "bot",
