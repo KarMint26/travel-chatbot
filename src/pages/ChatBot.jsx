@@ -36,9 +36,7 @@ const ChatBot = () => {
   const formatApiResponse = (apiResponse) => {
     // Function for formatted response from API
     const formattedResponse = [];
-    const categories = apiResponse.match(
-      /(\*\*\w+\s\w+\*\*)(.*?)(?=(\*\*\w+\s\w+\*\*|\*\*\*\*|\n\n|$))/gs
-    );
+    const categories = apiResponse.match(/(?<=\* )(.*)(?=\n)/g);
 
     if (categories) {
       categories.forEach((category) => {
