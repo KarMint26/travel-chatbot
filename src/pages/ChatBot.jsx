@@ -36,7 +36,7 @@ const ChatBot = () => {
   const formatApiResponse = (apiResponse) => {
     // Function for formatted response from API
     const formattedResponse = [];
-    const categories = apiResponse.match(/(?<=\* )(.+?)(?=\n|$)/g);
+    const categories = apiResponse.match(/(\*\*\w+\s\w+\*\*)(.*?)(?=(\*\*\w+\s\w+\*\*|\*\*\*\*|\n\n|$))/gs);
 
     if (categories) {
       categories.forEach((category) => {
@@ -88,7 +88,7 @@ const ChatBot = () => {
     const api_url =
       import.meta.env.API_URL || "https://api.sinawardi.com/askme";
     const dataPrompt = {
-      "prompt": `${prompts}`,
+      prompt: `${prompts}`,
     };
     const dataPayloads = JSON.stringify(dataPrompt);
 
@@ -96,7 +96,7 @@ const ChatBot = () => {
       method: "POST",
       url: api_url,
       headers: {
-        "Authorization": `Bearer ${api_key}`,
+        "apikey": `${api_key}`,
         "Content-Type": "application/json",
       },
       data: dataPayloads,
@@ -109,6 +109,9 @@ const ChatBot = () => {
 
   const handleResponse = (res) => {
     // Function to handle response from handle submit
+    if (res !== "") {
+      setLoading(false);
+    }
     const newChat = {
       id: nextId,
       type: "bot",
@@ -136,7 +139,6 @@ const ChatBot = () => {
     getData
       .then((data) => {
         handleResponse(data);
-        setLoading(false);
         setError(false);
       })
       .catch((err) => {
