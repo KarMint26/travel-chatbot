@@ -109,9 +109,6 @@ const ChatBot = () => {
 
   const handleResponse = (res) => {
     // Function to handle response from handle submit
-    if (res !== "") {
-      setLoading(false);
-    }
     const newChat = {
       id: nextId,
       type: "bot",
@@ -139,7 +136,14 @@ const ChatBot = () => {
     getData
       .then((data) => {
         handleResponse(data);
-        setError(false);
+        if(data === ""){
+          setError(true);
+          setLoading(false);
+          setErrorMessage("Error: Limit Request Reached");
+        } else {
+          setLoading(false);
+          setError(false);
+        }
       })
       .catch((err) => {
         console.log(err.message);
