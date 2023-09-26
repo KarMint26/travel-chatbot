@@ -96,7 +96,7 @@ const ChatBot = () => {
       method: "POST",
       url: api_url,
       headers: {
-        apikey: `${api_key}`,
+        "apikey": `${api_key}`,
         "Content-Type": "application/json",
       },
       data: dataPayloads,
