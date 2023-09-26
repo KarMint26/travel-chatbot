@@ -36,7 +36,9 @@ const ChatBot = () => {
   const formatApiResponse = (apiResponse) => {
     // Function for formatted response from API
     const formattedResponse = [];
-    const categories = apiResponse.match(/(\*\*\w+\s\w+\*\*)(.*?)(?=(\*\*\w+\s\w+\*\*|\*\*\*\*|\n\n|$))/gs);
+    const categories = apiResponse.match(
+      /(\*\*\w+\s\w+\*\*)(.*?)(?=(\*\*\w+\s\w+\*\*|\*\*\*\*|\n\n|$))/gs
+    );
 
     if (categories) {
       categories.forEach((category) => {
@@ -96,7 +98,7 @@ const ChatBot = () => {
       method: "POST",
       url: api_url,
       headers: {
-        "apikey": `${api_key}`,
+        apikey: `${api_key}`,
         "Content-Type": "application/json",
       },
       data: dataPayloads,
@@ -136,14 +138,8 @@ const ChatBot = () => {
     getData
       .then((data) => {
         handleResponse(data);
-        if(data === ""){
-          setError(true);
-          setLoading(false);
-          setErrorMessage("Error: Limit Request Reached");
-        } else {
-          setLoading(false);
-          setError(false);
-        }
+        setLoading(false);
+        setError(false);
       })
       .catch((err) => {
         console.log(err.message);
